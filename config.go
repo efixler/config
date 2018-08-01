@@ -72,7 +72,7 @@ func (e *Env) GetOrDefault(key string, dflt string) string {
 }
 
 func (e *Env) GetStrings(key string) []string {
-	rval := strings.Split(os.Getenv(key), ",")
+	rval := strings.Split(e.Get(key), ",")
 	for i, val := range rval {
 		rval[i] = strings.TrimSpace(val)
 	}
@@ -80,7 +80,7 @@ func (e *Env) GetStrings(key string) []string {
 }
 
 func (e *Env) MustGet(key string) string {
-	v := os.Getenv(key)
+	v := e.Get(key)
 	if v == "" {
 		log.Panicf("%s environment variable not set.", key)
 	}
