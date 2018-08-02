@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	loader      ConfigLoader
+	loader      Loader
 	loadLock    sync.Mutex
 	defaultConf Getter
 )
@@ -28,9 +28,9 @@ type Getter interface {
 	MustGet(string) string
 }
 
-type ConfigLoader func(context.Context) Getter
+type Loader func(context.Context) Getter
 
-func SetLoader(cl ConfigLoader) {
+func SetLoader(cl Loader) {
 	loader = cl
 	defaultConf = nil
 }
