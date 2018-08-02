@@ -23,7 +23,7 @@ var (
 	defaultConf Getter
 )
 
-// Getter: Core interface for implementations providing configuration data to consumers.
+// Getter : Core interface for implementations providing configuration data to consumers.
 type Getter interface {
 	Get(string) string
 	GetOrDefault(string, string) string
@@ -42,7 +42,7 @@ type Getter interface {
 // is not yet implemented). Calls to the Loader function can expect to receive a nil Context.
 type Loader func(context.Context) Getter
 
-// SetLoader(cl Loader): Pass a Loader that will be utilized to supply the Getter returned by Default().
+// SetLoader : Pass a Loader that will be utilized to supply the Getter returned by Default().
 // The Loader function will be called upon the first call to Default() after SetLoader().
 // Each call to SetLoader will clear the default Getter.
 //
@@ -59,7 +59,7 @@ func SetLoader(cl Loader) {
 	defaultConf = nil
 }
 
-// Default(): Return the default configuration.
+// Default : Return the default configuration.
 func Default() Getter {
 	if defaultConf != nil {
 		return defaultConf
@@ -81,18 +81,18 @@ func Default() Getter {
 type Env struct {
 }
 
-// Environment(): Return a new Env Getter.
+// Environment : Return a new Env Getter.
 func Environment() Getter {
 	return &Env{}
 }
 
-// Get(key string): Equivalent to os.Getenv(key). Note that other Get-ish methods in Env 
+// Get : Equivalent to os.Getenv(key). Note that other Get-ish methods in Env 
 // call Env.Get() (and not os.Getenv)
 func (e *Env) Get(key string) string {
 	return os.Getenv(key)
 }
 
-// GetOrDefault(key string, dflt string): If the requested key is not present or empty, return the dflt.
+// GetOrDefault : If the requested key is not present or empty, return the dflt.
 func (e *Env) GetOrDefault(key string, dflt string) string {
 	rval := e.Get(key)
 	if rval == "" {
