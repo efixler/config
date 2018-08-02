@@ -6,7 +6,7 @@
 // Implement your own Loader to mutate the environment before other packages consume configuration values, or
 // implement a custom Getter to use some other configuration scheme.
 //
-// Several packages under efixler are dependent on the config package. 
+// Several packages under efixler are dependent on the config package.
 package config
 
 import (
@@ -32,26 +32,26 @@ type Getter interface {
 }
 
 // Loader is a callback function that is be used to delegate configuration loading.
-// Loader is expected to return a Getter that will be used by consumers to actually get the configuration 
+// Loader is expected to return a Getter that will be used by consumers to actually get the configuration
 // values.
 // If the Loader copies configuration values into the environment, it can use
-// 	Environment() 
+// 	Environment()
 // to return a Getter that gets from the environment. See the example for SetLoader.
 //
 // The Context argument defined to provide a hook for per-request mutated configs (which
 // is not yet implemented). Calls to the Loader function can expect to receive a nil Context.
 type Loader func(context.Context) Getter
 
-// Pass a Loader that will be utilized to supply the Getter returned by Default(). 
+// Pass a Loader that will be utilized to supply the Getter returned by Default().
 // The Loader function will be called upon the first call to Default() after SetLoader().
-// Each call to SetLoader will clear the default Getter. 
+// Each call to SetLoader will clear the default Getter.
 //
 // A Loader can write values into the environment and return an Enviroment() Getter, or it can
 // return anything that implements the Getter interface. The example shows the former case.
-// 
+//
 // If you never call SetLoader() (or if you pass a nil value), the Default() Getter will pass through
 // environment variables.
-// 
+//
 // SetLoader() should be called early, preferably in an init() method as close as possible to the application's
 // entry point, to ensure that consumers get the right configuration as they are initializing.
 func SetLoader(cl Loader) {

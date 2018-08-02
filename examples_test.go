@@ -8,8 +8,8 @@ import (
 
 func ExampleSetLoader() {
 	f := func(ctx context.Context) Getter {
-		os.Setenv("mySpecialConfig","happy")
-		return Environment()	
+		os.Setenv("mySpecialConfig", "happy")
+		return Environment()
 	}
 	SetLoader(f)
 	config := Default()
