@@ -1,4 +1,4 @@
-// Package config provides a way to to supply runtime configuration values in a loosely coupled way.
+// Package config provides a way to to supply runtime configuration values, loosely coupled.
 // You can use config to read the environment, or to provide an arbitrarily complex configuration mechanism,
 // without binding your application tightly to that mechanism.
 //
