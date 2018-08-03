@@ -31,20 +31,19 @@ type Getter interface {
 	MustGet(string) string
 }
 
-// Loader is a callback function that is be used to delegate configuration loading.
-// Loader is expected to return a Getter that will be used by consumers to actually get the configuration
+// Loader is a callback function that used to delegate configuration loading.
+// Loader is expected to return a Getter that will be used by consumers to access configuration
 // values.
-// If the Loader copies configuration values into the environment, it can use
-// 	Environment()
-// to return a Getter that gets from the environment. See the example for SetLoader.
+// If the Loader copies configuration values into the environment, it can 
+// return a standard environment getter using Environment(). See the SetLoader() example.
 //
-// The Context argument defined to provide a hook for per-request mutated configs (which
+// The Context argument is defined to provide a hook for per-request mutated configs (which
 // is not yet implemented). Calls to the Loader function can expect to receive a nil Context.
 type Loader func(context.Context) Getter
 
 // SetLoader : Pass a Loader that will be utilized to supply the Getter returned by Default().
 // The Loader function will be called upon the first call to Default() after SetLoader().
-// Each call to SetLoader will clear the default Getter.
+// Each call to SetLoader will clear the current default Getter.
 //
 // A Loader can write values into the environment and return an Enviroment() Getter, or it can
 // return anything that implements the Getter interface. The example shows the former case.
